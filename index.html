@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-@@ -23,37 +24,76 @@
+    <title>Seleccione un Cancionero</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin: 20px;
+            color: #333;
+        }
         .pdf-selector {
             margin-bottom: 20px;
-        }
-        .pdf-container {
-            width: 80%;
-            height: 80vh;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: auto;
         }
         select {
             padding: 10px;
             font-size: 1rem;
         }
-        canvas {
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
-    <h1>Elija el Cancionero</h1>
-    <h1>Cancioneros</h1>
+    <h1>Seleccione un Cancionero</h1>
 
     <div class="pdf-selector">
-        <label for="pdfSelect">Selecciona un cancionero:</label>
         <select id="pdfSelect">
-            <option value="">Select a PDF</option>
-            <option value="">Selecciona un cancionero</option>
+            <option value="">Selecciones un Cancionero</option>
             <option value="Cancionero 1.pdf">Cancionero 1</option>
             <option value="Cancionero 2.pdf">Cancionero 2</option>
             <option value="Cancionero 3.pdf">Cancionero 3</option>
@@ -41,48 +43,15 @@
         </select>
     </div>
 
-    <div class="pdf-container" id="pdfContainer">
-        <canvas id="pdfViewer"></canvas>
-    </div>
-
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     <script>
         document.getElementById('pdfSelect').addEventListener('change', function() {
             var selectedPdf = this.value;
-        const pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
 
-        const canvas = document.getElementById('pdfViewer');
-        const ctx = canvas.getContext('2d');
-        const pdfContainer = document.getElementById('pdfContainer');
-
-        document.getElementById('pdfSelect').addEventListener('change', function () {
-            var selectedPdf = this.value;
             if (selectedPdf) {
                 // Open the PDF in a new browser tab
                 window.open(selectedPdf, '_blank');
-                loadPDF(selectedPdf);
-            } else {
-                canvas.style.display = 'none';
             }
         });
-
-        async function loadPDF(pdfPath) {
-            const loadingTask = pdfjsLib.getDocument(pdfPath);
-            const pdf = await loadingTask.promise;
-            const page = await pdf.getPage(1);
-
-            const viewport = page.getViewport({ scale: 1.5 });
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-
-            const renderContext = {
-                canvasContext: ctx,
-                viewport: viewport
-            };
-
-            await page.render(renderContext).promise;
-        }
     </script>
 
 </body>
