@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancioneros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin: 20px;
+            color: #333;
+        }
+        .pdf-selector {
+            margin-bottom: 20px;
+        }
+        .pdf-container {
+            width: 80%;
+            height: 80vh;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        .pdf-title {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Select a PDF to View</h1>
+
+    <div class="pdf-selector">
+        <select id="pdfSelect">
+            <option value="">Elija el Cancionero</option>
+            <option value="Cancionero 1.pdf">Cancionero 1</option>
+            <option value="Cancionero 2.pdf">Cancionero 2</option>
+            <option value="Cancionero 3.pdf">Cancionero 3</option>
+            <option value="Cancionero 4.pdf">Cancionero 4</option>
+        </select>
+    </div>
+
+    <div class="pdf-container" id="pdfContainer" style="display: none;">
+        <div class="pdf-title" id="pdfTitle"></div>
+        <embed id="pdfViewer" src="" type="application/pdf" width="100%" height="100%">
+    </div>
+
+    <script>
+        document.getElementById('pdfSelect').addEventListener('change', function() {
+            var selectedPdf = this.value;
+            var pdfContainer = document.getElementById('pdfContainer');
+            var pdfViewer = document.getElementById('pdfViewer');
+            var pdfTitle = document.getElementById('pdfTitle');
+
+            if (selectedPdf) {
+                // Show the container and load the selected PDF
+                pdfContainer.style.display = 'block';
+                pdfViewer.src = selectedPdf;
+                pdfTitle.innerText = 'Viewing ' + selectedPdf;
+            } else {
+                // Hide the container if no PDF is selected
+                pdfContainer.style.display = 'none';
+                pdfViewer.src = '';
+            }
+        });
+    </script>
+
+</body>
+</html>
